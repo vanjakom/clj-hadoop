@@ -19,7 +19,7 @@
   "Checks if path exists on hdfs"
   [path]
 
-  (let [path-hdfs (create-hadoop-path *hdfs-host-port* path)
+  (let [path-hdfs (create-hadoop-path path)
         fs (create-fs *hdfs-host-port*)]
     (.exists fs path-hdfs)))
 
@@ -27,16 +27,16 @@
   "Ensures given path exists, making all non existing dirs"
   [path]
 
-  (let [path-hdfs (create-hadoop-path *hdfs-host-port* path)
+  (let [path-hdfs (create-hadoop-path path)
         fs (create-fs *hdfs-host-port*)]
     (.mkdirs fs path-hdfs)))
 
 (defn move
   "Moves hdfs path to new path"
   [source-path destination-path]
-  (let [source-path-hdfs (create-hadoop-path *hdfs-host-port* source-path)
-        destination-path-hdfs (create-hadoop-path *hdfs-host-port* destination-path)
-        fs (create-fs *hdfs-host-port*)]
+  (let [source-path-hdfs (create-hadoop-path source-path)
+        destination-path-hdfs (create-hadoop-path destination-path)
+        fs (create-fs)]
     (.rename fs source-path-hdfs destination-path-hdfs)))
 
 (defn move-to-trash [path]
@@ -47,15 +47,15 @@
 
 (defn delete
   [path]
-  (let [fs (create-fs *hdfs-host-port*)]
+  (let [fs (create-fs)]
     (.delete fs (new org.apache.hadoop.fs.Path (path->string path)))))
 
 (defn is-directory
   "Checks if given path represents directory"
   [path]
 
-  (let [path-hdfs (create-hadoop-path *hdfs-host-port* path)
-        fs (create-fs *hdfs-host-port*)
+  (let [path-hdfs (create-hadoop-path path)
+        fs (create-fs)
         file-status (.getFileStatus fs path-hdfs)]
     (.isDir file-status)))
 
@@ -63,8 +63,8 @@
   "List paths on given path if directory, if file or doesn't exist empty list is returned"
   [path]
 
-  (let [path-hdfs (create-hadoop-path *hdfs-host-port* path)
-        fs (create-fs *hdfs-host-port*)
+  (let [path-hdfs (create-hadoop-path path)
+        fs (create-fs)
         file-statuses (.listStatus fs path-hdfs)]
 
     (map
@@ -77,16 +77,16 @@
   "Creates input stream for given path"
   [path]
 
-  (let [path-hdfs (create-hadoop-path *hdfs-host-port* path)
-        fs (create-fs *hdfs-host-port*)]
+  (let [path-hdfs (create-hadoop-path path)
+        fs (create-fs)]
     (.open fs path-hdfs)))
 
 (defn output-stream
   "Creates output stream for given path"
   [path]
 
-  (let [path-hdfs (create-hadoop-path *hdfs-host-port* path)
-        fs (create-fs *hdfs-host-port*)]
+  (let [path-hdfs (create-hadoop-path path)
+        fs (create-fs)]
     (.create fs path-hdfs)))
 
 (defn output-stream-by-appending
