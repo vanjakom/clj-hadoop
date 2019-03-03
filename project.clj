@@ -7,9 +7,18 @@
                   [org.clojure/clojure "1.8.0"]
                   [lein-light-nrepl "0.3.2"]
 
-                  [com.mungolab/clj-common "0.1.0-SNAPSHOT"]
+                  [com.mungolab/clj-common "0.2.0-SNAPSHOT"]
 
-                  [org.apache.hadoop/hadoop-core "0.20.2-cdh3u5"]
+                  [
+                    org.apache.hadoop/hadoop-core
+                    "0.20.2-cdh3u5"]
+
+                    ; removing exclusions since m/r job submit is failing
+                    ;:exclusions [
+                    ;              org.codehaus.jackson/jackson-xc
+                    ;              org.codehaus.jackson/jackson-jaxrs
+                    ;              org.codehaus.jackson/jackson-core-asl
+                    ;              org.codehaus.jackson/jackson-mapper-asl]]
 
                   ;[org.apache.hadoop/hadoop-client "2.6.0-cdh5.9.1"]
 

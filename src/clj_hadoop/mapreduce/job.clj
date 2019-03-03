@@ -1,6 +1,6 @@
 (ns clj-hadoop.mapreduce.job)
 
-(require '[clj-common.hdfs :as hdfs])
+(require '[clj-hadoop.hdfs :as hdfs])
 (require '[clj-common.path :as path])
 
 
